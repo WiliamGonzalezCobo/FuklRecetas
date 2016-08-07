@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>JSF 2.0 Hello World</title>
+</h:head>
+<h:body>
+	<h2>JSF 2.0 Hello World Example - test.xhtml</h2>
+	<h:form>
+		<h:outputText value="#{testBean.str}" />
+		<p:inputText id="test"></p:inputText>
+	</h:form>
+
+	<p:notificationBar position="top" effect="slide" styleClass="top" widgetVar="bar">
+		<h:outputText value="PrimeFaces Rocks!" style="font-size:36px;" />
+	</p:notificationBar>
+
+	<p:commandButton value="Show" onclick="PF('bar').show()" type="button" icon="ui-icon-arrow-1-s" />
+	<p:commandButton value="Hide" onclick="PF('bar').hide()" type="button" icon="ui-icon-arrow-1-n" />
+</h:body>
+</html>
