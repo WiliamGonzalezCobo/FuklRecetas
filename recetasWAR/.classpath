@@ -20,5 +20,6 @@
 			<attribute name="owner.project.facets" value="jst.jsf"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/recetasBM"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
