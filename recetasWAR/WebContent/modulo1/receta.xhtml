@@ -9,14 +9,18 @@
 
 	<ui:define name="content">
 		<h:form id="form_receta">
-			<h:panelGrid columns="2">
+			<h:panelGrid columns="2" id="panelCreacion">
 				<h:outputLabel for="nombreReceta" value="Nombre Receta:" />
 				<p:inputText id="nombreReceta" value="#{recetaBean.receta.nombre}" required="true" />
 
 				<h:outputLabel for="tiempoCoccion" value="Tiempo Cocción:" />
-				<p:inputText id="tiempoCoccion" value="#{recetaBean.receta.tiempoCoccion}" required="true" />
+				<h:panelGrid columns="2">
+					<p:inputText id="tiempoCoccion" value="#{recetaBean.receta.tiempoCoccion}" required="true" style="text-align: right;"/>
+					<h:outputLabel value="hr" />
+				</h:panelGrid>
 				
 				<h:outputText value="" />
+				
 				<p:dataTable var="ingrediente" value="#{recetaBean.receta.listaIngredientes}">
 					<f:facet name="header">Ingredientes</f:facet>
 
@@ -35,21 +39,19 @@
 					</p:column>
 					
 					<p:column>
-						<p:commandButton value="Guardar" id="guardarIngrediente" update="growl" styleClass="ui-priority-primary" />
+						<p:commandButton value="Guardar" id="guardarIngrediente" styleClass="ui-priority-primary" />
 					</p:column>
 					
 				</p:dataTable>
 
 				<h:outputLabel for="preparacion" value="Preparacion:" />
-				<p:inputTextarea id="preparacion" value="#{recetaBean.receta.preparacion}" rows="10" cols="50" queryDelay="750" minQueryLength="4" />
+				<p:inputTextarea id="preparacion" value="#{recetaBean.receta.preparacion}" rows="10" cols="100" queryDelay="750" minQueryLength="4" />
 	
 			</h:panelGrid>
 			
 			<h:panelGrid>
-				<p:commandButton value="Guardar" id="guardarReceta" update="growl"  styleClass="ui-priority-primary" />
+				<p:commandButton value="Guardar" id="guardarReceta" styleClass="ui-priority-primary" />
 			</h:panelGrid>
-			
-			<p:growl id="growl" life="2000" />
 		</h:form>
 	</ui:define>
 
