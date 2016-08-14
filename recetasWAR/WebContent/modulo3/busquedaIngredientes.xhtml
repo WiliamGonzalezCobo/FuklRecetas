@@ -1,0 +1,65 @@
+<ui:composition template="/template/template.xhtml" 
+				xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:ui="http://java.sun.com/jsf/facelets" 
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui">
+
+	<!-- params for page titles-->
+
+	<ui:define name="content">
+		<h:form id="form_busquedaIngredientes">
+			<h:panelGrid>
+				<p:button outcome="/inicio" value="Regresar" icon="ui-icon-arrowreturnthick-1-w">
+				</p:button>
+			</h:panelGrid>
+			
+			<h:panelGrid width="100%">
+				<p:fieldset legend="Listado">
+					<h:panelGrid id="tablaIngredientes" width="80%" style="margin: 0 auto;">
+						
+						<h3>Ingredientes:</h3>
+						<hr />
+					
+						<p:dataTable var="ingrediente" value="#{busquedaIngredienteBean.listadoIngredientes}" binding="#{busquedaIngredienteBean.tablaIngredientes}">
+							
+							<p:column headerText="Nombre:" filterBy="#{ingrediente.nombre}" filterMatchMode="contains">
+								<h:outputText value="#{ingrediente.nombre}" />
+							</p:column>
+
+							<p:column style="width:32px;text-align: center">
+								<p:commandButton update=":form_busquedaIngredientes:panelTablaReceta" action="#{busquedaIngredienteBean.filtrarRecetas}" icon="ui-icon-search" title="Ver Receta">
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</h:panelGrid>
+
+					<h:panelGroup layout="block" style="width:100%" id="panelTablaReceta">
+						<h:panelGrid id="tablaRecetas" width="80%" style="margin: 0 auto;" rendered="#{busquedaIngredienteBean.verTablaReceta}">
+							<h3>Recetas:</h3>
+							<hr />
+
+							<p:dataTable var="receta" value="#{busquedaIngredienteBean.listadoRecetasFiltradas}" binding="#{busquedaIngredienteBean.tablaRecetas}">
+								<p:column headerText="Nombre:" filterBy="#{receta.nombre}" filterMatchMode="contains">
+									<h:outputText value="#{receta.nombre}" />
+								</p:column>
+
+								<p:column style="width:32px;text-align: center">
+									<p:commandButton update=":form_busquedaIngredientes:panelReceta" action="#{busquedaIngredienteBean.verReceta}" icon="ui-icon-search" title="Ver Receta">
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+						</h:panelGrid>
+					</h:panelGroup>
+				</p:fieldset>
+			</h:panelGrid>
+
+			<h:panelGroup layout="block" style="width:100%" id="panelReceta">
+				<h:panelGrid width="100%" rendered="#{busquedaIngredienteBean.verReceta}">
+					<ui:include src="/commons/datosReceta.xhtml" />
+				</h:panelGrid>
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

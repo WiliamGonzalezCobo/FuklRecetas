@@ -1,4 +1,4 @@
-package co.com.modulo5.bean;
+package co.com.modulo3.bean;
 
 import java.io.Serializable;
 import java.util.List;
@@ -37,7 +37,7 @@ public class BusquedaNombreBean extends BackingUI implements Serializable{
 		}
 	}
 
-	public void verReceta() {
+	public void detalleReceta() {
 		try {
 			receta = (Receta) table.getRowData();
 			getBean(DatosRecetaBean.class).cargarReceta(receta);
@@ -53,10 +53,6 @@ public class BusquedaNombreBean extends BackingUI implements Serializable{
 
 	public void setListadoRecetas(List<Receta> listadoRecetas) {
 		this.listadoRecetas = listadoRecetas;
-	}
-
-	public boolean isVerEliminar() {
-		return listadoRecetas.contains(receta);
 	}
 
 	public boolean isVerReceta() {

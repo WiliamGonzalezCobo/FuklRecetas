@@ -9,6 +9,11 @@
 
 	<ui:define name="content">
 		<h:form id="form_busquedaNombre">
+			<h:panelGrid>
+				<p:button outcome="/inicio" value="Regresar" icon="ui-icon-arrowreturnthick-1-w">
+				</p:button>
+			</h:panelGrid>
+			
 			<h:panelGrid width="100%">
 				<p:fieldset legend="Listado">
 					<h:panelGrid id="recetas" width="80%" style="margin: 0 auto;">
@@ -22,7 +27,7 @@
 							</p:column>
 							
 							<p:column style="width:32px;text-align: center">
-								<p:commandButton update=":form_busquedaNombre:panelReceta" action="#{busquedaNombreBean.verReceta}" icon="ui-icon-search" title="Ver Receta">
+								<p:commandButton update=":form_busquedaNombre:panelReceta" action="#{busquedaNombreBean.detalleReceta}" icon="ui-icon-search" title="Ver Receta">
 								</p:commandButton>
 							</p:column>
 						</p:dataTable>

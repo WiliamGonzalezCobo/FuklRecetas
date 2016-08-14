@@ -9,6 +9,11 @@
 
 	<ui:define name="content">
 		<h:form id="form_receta">
+			<h:panelGrid>
+				<p:button outcome="/inicio" value="Regresar" icon="ui-icon-arrowreturnthick-1-w">
+				</p:button>
+			</h:panelGrid>
+		
 			<h:panelGrid columns="2">
 
 				<p:fieldset legend="Listado">
@@ -37,7 +42,7 @@
 
 						<h:outputLabel for="tiempoCoccion" value="Tiempo Cocción:" />
 						<h:panelGrid columns="3">
-							<p:inputText id="tiempoCoccion" value="#{recetaBean.receta.tiempoCoccion}" style="text-align: right;" />
+							<p:inputNumber id="tiempoCoccion" value="#{recetaBean.receta.tiempoCoccion}" emptyValue="empty" style="text-align: right;"/>
 							<h:outputLabel value="hr" />
 							<p:message for="tiempoCoccion" />
 						</h:panelGrid>

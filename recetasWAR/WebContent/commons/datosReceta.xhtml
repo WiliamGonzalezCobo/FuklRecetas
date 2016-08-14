@@ -17,7 +17,7 @@
 
 				<h:outputLabel for="tiempoCoccion" value="Tiempo Cocción:" />
 				<h:panelGrid columns="3">
-					<p:inputText id="tiempoCoccion" value="#{datosRecetaBean.receta.tiempoCoccion}" style="text-align: right;" disabled="true"/>
+					<p:inputNumber id="tiempoCoccion" value="#{datosRecetaBean.receta.tiempoCoccion}" style="text-align: right;" emptyValue="empty" disabled="true"/>
 					<h:outputLabel value="hr" />
 					<p:message for="tiempoCoccion" />
 				</h:panelGrid>

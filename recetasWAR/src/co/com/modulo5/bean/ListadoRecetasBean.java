@@ -1,6 +1,8 @@
-package co.com.modulo2.bean;
+package co.com.modulo5.bean;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -16,35 +18,44 @@ import co.com.recettear.pojo.Receta;
 
 @ManagedBean
 @ViewScoped
-public class BusquedaNombreTiempoBean extends BackingUI implements Serializable{
+public class ListadoRecetasBean extends BackingUI implements Serializable{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6057702269202974886L;
 
-	private Receta receta;
 	private List<Receta> listadoRecetas;
-	private DataTable table;
 	private boolean verReceta;
-
+	private DataTable tabla;
+	
 	@PostConstruct
 	public void init() {
 		try {
 			listadoRecetas = Persistir.lecturaJson();
+			Collections.sort(listadoRecetas, new Comparator<Receta>() {
+				@Override
+				public int compare(Receta r1, Receta r2) {
+					return r1.getNombre().compareTo(r2.getNombre());
+				}
+			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void detalleReceta() {
+	public void verReceta() {
 		try {
-			receta = (Receta) table.getRowData();
+			Receta receta = (Receta) tabla.getRowData();
 			getBean(DatosRecetaBean.class).cargarReceta(receta);
 			verReceta = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean isVerReceta() {
+		return verReceta;
 	}
 
 	public List<Receta> getListadoRecetas() {
@@ -55,15 +66,12 @@ public class BusquedaNombreTiempoBean extends BackingUI implements Serializable{
 		this.listadoRecetas = listadoRecetas;
 	}
 
-	public boolean isVerReceta() {
-		return verReceta;
+	public DataTable getTabla() {
+		return tabla;
 	}
 
-	public DataTable getTable() {
-		return table;
+	public void setTabla(DataTable tabla) {
+		this.tabla = tabla;
 	}
 
-	public void setTable(DataTable table) {
-		this.table = table;
-	}
 }

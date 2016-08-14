@@ -8,25 +8,25 @@
 	<!-- params for page titles-->
 
 	<ui:define name="content">
-		<h:form id="form_busquedaNombreTiempo">
+		<h:form id="form_listadoRecetas">
 			<h:panelGrid>
 				<p:button outcome="/inicio" value="Regresar" icon="ui-icon-arrowreturnthick-1-w">
 				</p:button>
 			</h:panelGrid>
+			
 			<h:panelGrid width="100%">
 				<p:fieldset legend="Listado">
-					<h:panelGrid id="recetas" width="80%" style="margin: 0 auto;">
-						<p:dataTable var="receta" value="#{busquedaNombreTiempoBean.listadoRecetas}" binding="#{busquedaNombreTiempoBean.table}">
-							<p:column headerText="Nombre:" filterBy="#{receta.nombre}" filterMatchMode="contains">
-								<h:outputText value="#{receta.nombre}"/>
+					<h:panelGrid id="tablaRecetas" width="80%" style="margin: 0 auto;" >
+						<h3>Recetas:</h3>
+						<hr />
+
+						<p:dataTable var="receta" value="#{listadoRecetasBean.listadoRecetas}" binding="#{listadoRecetasBean.tabla}">
+							<p:column headerText="Nombre:" sortBy="#{receta.nombre}" filterBy="#{receta.nombre}" filterMatchMode="contains">
+								<h:outputText value="#{receta.nombre}" />
 							</p:column>
-							
-							<p:column headerText="Tiempo Coccion:" filterBy="#{receta.tiempoCoccion}" filterMatchMode="contains" style="width:250px;">
-								<h:outputText value="#{receta.tiempoCoccion}" />
-							</p:column>
-							
+
 							<p:column style="width:32px;text-align: center">
-								<p:commandButton update=":form_busquedaNombreTiempo:panelReceta" action="#{busquedaNombreTiempoBean.detalleReceta}" icon="ui-icon-search" title="Ver Receta">
+								<p:commandButton update=":form_listadoRecetas:panelReceta" action="#{listadoRecetasBean.verReceta}" icon="ui-icon-search" title="Ver Receta">
 								</p:commandButton>
 							</p:column>
 						</p:dataTable>
@@ -35,7 +35,7 @@
 			</h:panelGrid>
 
 			<h:panelGroup layout="block" style="width:100%" id="panelReceta">
-				<h:panelGrid width="100%" rendered="#{busquedaNombreTiempoBean.verReceta}">
+				<h:panelGrid width="100%" rendered="#{listadoRecetasBean.verReceta}">
 					<ui:include src="/commons/datosReceta.xhtml" />
 				</h:panelGrid>
 			</h:panelGroup>
