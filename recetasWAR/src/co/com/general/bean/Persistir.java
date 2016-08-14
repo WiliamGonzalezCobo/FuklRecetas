@@ -1,5 +1,6 @@
 package co.com.general.bean;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Serializable;
@@ -15,20 +16,51 @@ import com.google.gson.reflect.TypeToken;
 public class Persistir implements Serializable{
 	
 	private static final long serialVersionUID = 8362882110331231649L;
-	private static final String rutaJson = "/home/desarrollo-06/Juan/"+"datos.json";
+	private static final String rutaJson = "D:\\temp\\"+"datos.json";
 	
-	public static void escrituraJson(List<Receta> listaRecetas) throws java.io.IOException {
-		String json = new Gson().toJson(listaRecetas);
-		FileWriter datosJson = new FileWriter(rutaJson, true);
-		datosJson.write(json);
-		datosJson.close();		
+	public static void escrituraJson(List<Receta> listaRecetas)throws Exception {
+		FileWriter datosJson = null;
+		try {
+			limpiarDatosJson();
+			String json = new Gson().toJson(listaRecetas);
+			datosJson = new FileWriter(rutaJson, true);
+			datosJson.write(json);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			datosJson.close();
+		}
+	}
+	
+	private static void limpiarDatosJson(){
+		File f = new File(rutaJson);
+		try {
+			if(f.exists()){
+				f.delete();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	public static List<Receta> lecturaJson() throws java.io.IOException {
-        FileReader datosJson = new FileReader(rutaJson);
-        Type type = new TypeToken<ArrayList<Receta>>(){}.getType();
-        List<Receta> recetas = new Gson().fromJson(datosJson, type); 
-        datosJson.close();
+	public static List<Receta> lecturaJson() throws Exception{
+		File f = new File(rutaJson);
+		List<Receta> recetas = null;
+		FileReader datosJson = null;
+		if(f.exists()){
+			try {
+				datosJson = new FileReader(rutaJson);
+				Type type = new TypeToken<ArrayList<Receta>>(){}.getType();
+				recetas = new Gson().fromJson(datosJson, type);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				datosJson.close();
+			}
+		}
+        if(recetas==null){
+        	recetas = new ArrayList<Receta>();
+        }
         return recetas;
 	}
 }

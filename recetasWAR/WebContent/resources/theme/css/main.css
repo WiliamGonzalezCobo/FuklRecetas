@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+body{
+	background-color: #ccc; 
+	font-family: "Times New Roman", Times, serif;
+	font-size: 11px;
+}
+
+table.campoTabla tbody 	tr td{
+	border: none !important;
+}
+
+.menu{
+	margin: 0 auto;
+	margin-top: 15%;
+}

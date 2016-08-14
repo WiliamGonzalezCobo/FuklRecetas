@@ -8,9 +8,13 @@
 	<!-- params for page titles-->
 	
 	<ui:define name="content">
-		<p:menu>
+		<p:menu style="width: 400px;" styleClass="menu">
 			<p:submenu label="Recetario">
 				<p:menuitem value="Receta" outcome="/modulo1/receta" icon="ui-icon-star" />
+				<p:menuitem value="Busqueda por nombre y tiempo" outcome="/modulo2/busquedaNombreTiempo" icon="ui-icon-star" />
+				
+				
+				<p:menuitem value="Busqueda por nombre" outcome="/modulo5/busquedaNombre" icon="ui-icon-star" />
 			</p:submenu>
 		</p:menu>
 	</ui:define>

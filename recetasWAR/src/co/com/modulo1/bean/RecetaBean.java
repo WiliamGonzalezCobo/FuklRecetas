@@ -5,18 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
+import co.com.general.bean.BackingUI;
 import co.com.general.bean.Persistir;
 import co.com.recettear.pojo.Ingrediente;
 import co.com.recettear.pojo.Receta;
 
 @ManagedBean
 @ViewScoped
-public class RecetaBean implements Serializable{
+public class RecetaBean extends BackingUI implements Serializable{
 	
 	/**
 	 * 
@@ -32,23 +31,89 @@ public class RecetaBean implements Serializable{
 		receta = new Receta();
 		ingrediente = new Ingrediente();
 		receta.setListaIngredientes(new ArrayList<Ingrediente>());
-		listadoRecetas = new ArrayList<>();
-	}
-	
-	public void guardarIngrediente(){
 		try {
-			receta.getListaIngredientes().add(ingrediente);
-			ingrediente = new Ingrediente();
+			listadoRecetas = Persistir.lecturaJson();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void guardarReceta(){
+	private boolean validarIngrediente(){
+		boolean validador = true;
+		if(ingrediente.getNombre()==null || ingrediente.getNombre().isEmpty()){
+			error("form_receta:ingredientes:nombreIngrediente", "Campo Requerido");
+			validador = false;
+		}
+		if(ingrediente.getCantidad()==null || ingrediente.getCantidad().isEmpty()){
+			error("form_receta:ingredientes:cantidadIngrediente", "Campo Requerido");
+			validador = false;
+		}
+		return validador;
+	}
+	
+	public void guardarIngrediente(){
 		try {
-			listadoRecetas.add(receta);
-			receta = new Receta();
+			if(validarIngrediente()){
+				receta.getListaIngredientes().add(ingrediente);
+				ingrediente = new Ingrediente();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private boolean validarReceta(){
+		boolean validador = true;
+		if(receta.getNombre()==null || receta.getNombre().isEmpty()){
+			error("form_receta:nombreReceta", "Campo Requerido");
+			validador = false;
+		}
+		if(receta.getTiempoCoccion()<=0){
+			error("form_receta:tiempoCoccion", "No puede ser inferior o igual a 0");
+			validador = false;
+		}
+		
+		if(receta.getPreparacion()==null || receta.getPreparacion().isEmpty()){
+			error("form_receta:preparacion", "Campo Requerido");
+			validador = false;
+		}
+		if(receta.getListaIngredientes().isEmpty()){
+			error("form_receta:ingredientes", "Listado Requerido");
+			validador = false;
+		}
+		
+		return validador;
+	}
+	
+	public void guardarReceta() {
+		try {
+			if (validarReceta()) {
+				if (!listadoRecetas.contains(receta)) {
+					listadoRecetas.add(receta);
+				}
+				receta = new Receta();
+				Persistir.escrituraJson(listadoRecetas);
+				dialogInfo("Registro guardado.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void eliminarReceta() {
+		try {
+			listadoRecetas.remove(receta);
 			Persistir.escrituraJson(listadoRecetas);
+			receta = new Receta();
+			dialogInfo("Se elimino el registro");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void verReceta(){
+		try {
+			System.out.println(receta.getNombre());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -77,11 +142,8 @@ public class RecetaBean implements Serializable{
 	public void setListadoRecetas(List<Receta> listadoRecetas) {
 		this.listadoRecetas = listadoRecetas;
 	}
-	
-//	public void addMessage(String idElement, String detail) {
-//        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-//    	FacesContext context = FacesContext.getCurrentInstance();
-//    	context.addMessage(idElement, message);
-//    }
 
+	public boolean isVerEliminar() {
+		return listadoRecetas.contains(receta);
+	}
 }

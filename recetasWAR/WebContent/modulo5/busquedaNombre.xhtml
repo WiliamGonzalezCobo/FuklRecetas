@@ -1,0 +1,41 @@
+<ui:composition template="/template/template.xhtml" 
+				xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:ui="http://java.sun.com/jsf/facelets" 
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui">
+
+	<!-- params for page titles-->
+
+	<ui:define name="content">
+		<h:form id="form_busquedaNombre">
+			<h:panelGrid width="100%">
+				<p:fieldset legend="Listado">
+					<h:panelGrid id="recetas" width="80%" style="margin: 0 auto;">
+						<p:dataTable var="receta" value="#{busquedaNombreBean.listadoRecetas}" binding="#{busquedaNombreBean.table}">
+							<p:column headerText="Nombre:" filterBy="#{receta.nombre}" filterMatchMode="contains">
+								<h:outputText value="#{receta.nombre}"/>
+							</p:column>
+							
+							<p:column headerText="Tiempo Coccion:" style="width:250px;">
+								<h:outputText value="#{receta.tiempoCoccion}" />
+							</p:column>
+							
+							<p:column style="width:32px;text-align: center">
+								<p:commandButton update=":form_busquedaNombre:panelReceta" action="#{busquedaNombreBean.verReceta}" icon="ui-icon-search" title="Ver Receta">
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</h:panelGrid>
+				</p:fieldset>
+			</h:panelGrid>
+
+			<h:panelGroup layout="block" style="width:100%" id="panelReceta">
+				<h:panelGrid width="100%" rendered="#{busquedaNombreBean.verReceta}">
+					<ui:include src="/commons/datosReceta.xhtml" />
+				</h:panelGrid>
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:ui="http://java.sun.com/jsf/facelets" 
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui">
+
+
+	<h:panelGrid>
+
+		<p:fieldset legend="Receta">
+			<h:panelGrid columns="2" id="panelCreacion" width="100%">
+				<h:outputLabel for="nombreReceta" value="Nombre Receta:" />
+				<h:panelGrid columns="2">
+					<p:inputText id="nombreReceta" value="#{datosRecetaBean.receta.nombre}" disabled="true" />
+					<p:message for="nombreReceta" />
+				</h:panelGrid>
+
+				<h:outputLabel for="tiempoCoccion" value="Tiempo Cocción:" />
+				<h:panelGrid columns="3">
+					<p:inputText id="tiempoCoccion" value="#{datosRecetaBean.receta.tiempoCoccion}" style="text-align: right;" disabled="true"/>
+					<h:outputLabel value="hr" />
+					<p:message for="tiempoCoccion" />
+				</h:panelGrid>
+
+				<h:outputText value="" />
+
+				<h:panelGrid columns="2">
+					<p:dataTable id="ingredientes" var="ingrediente" value="#{datosRecetaBean.receta.listaIngredientes}">
+						<f:facet name="header">Ingredientes</f:facet>
+
+						<p:column headerText="Nombre:">
+							<h:outputText value="#{ingrediente.nombre}" />
+						</p:column>
+
+						<p:column headerText="Cantidad">
+							<h:outputText value="#{ingrediente.cantidad}" />
+						</p:column>
+
+					</p:dataTable>
+					<p:message for="ingredientes" />
+				</h:panelGrid>
+
+				<h:outputLabel for="preparacion" value="Preparacion:" />
+				<h:panelGrid columns="2">
+					<p:inputTextarea id="preparacion" value="#{datosRecetaBean.receta.preparacion}" rows="10" cols="100" queryDelay="750" minQueryLength="4" disabled="true"/>
+					<p:message for="preparacion" />
+				</h:panelGrid>
+
+			</h:panelGrid>
+
+		</p:fieldset>
+
+	</h:panelGrid>
+
+
+</ui:composition>

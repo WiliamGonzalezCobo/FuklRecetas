@@ -11,59 +11,82 @@
 		<h:form id="form_receta">
 			<h:panelGrid columns="2">
 
-				<p:fieldset legend="Listado" style="margin-top: -263px">
-					<h:panelGrid id="recetas">
-						<p:dataTable var="receta" value="#{recetaBean.listadoRecetas}">
+				<p:fieldset legend="Listado">
+					<h:panelGrid id="recetas" width="250px">
+						<p:dataTable var="receta" value="#{recetaBean.listadoRecetas}" >
 							<p:column headerText="Nombre:">
 								<h:outputText value="#{receta.nombre}" />
+							</p:column>
+
+							<p:column style="width:32px;text-align: center">
+								<p:commandButton update=":form_receta:panelCreacion" icon="ui-icon-search" title="Ver Receta">
+									<f:setPropertyActionListener value="#{receta}" target="#{recetaBean.receta}" />
+								</p:commandButton>
 							</p:column>
 						</p:dataTable>
 					</h:panelGrid>
 				</p:fieldset>
 
 				<p:fieldset legend="Receta">
-					<h:panelGrid columns="2" id="panelCreacion">
+					<h:panelGrid columns="2" id="panelCreacion" width="100%">
 						<h:outputLabel for="nombreReceta" value="Nombre Receta:" />
-						<p:inputText id="nombreReceta" value="#{recetaBean.receta.nombre}" required="true" />
+						<h:panelGrid columns="2">
+							<p:inputText id="nombreReceta" value="#{recetaBean.receta.nombre}" />
+							<p:message for="nombreReceta" />
+						</h:panelGrid>
 
 						<h:outputLabel for="tiempoCoccion" value="Tiempo Cocción:" />
-						<h:panelGrid columns="2">
-							<p:inputText id="tiempoCoccion" value="#{recetaBean.receta.tiempoCoccion}" required="true" style="text-align: right;" />
+						<h:panelGrid columns="3">
+							<p:inputText id="tiempoCoccion" value="#{recetaBean.receta.tiempoCoccion}" style="text-align: right;" />
 							<h:outputLabel value="hr" />
+							<p:message for="tiempoCoccion" />
 						</h:panelGrid>
 
 						<h:outputText value="" />
 
-						<p:dataTable var="ingrediente" value="#{recetaBean.receta.listaIngredientes}" id="tablaIngredientes" >
-							<f:facet name="header">Ingredientes</f:facet>
+						<h:panelGrid columns="2">
+							<p:dataTable id="ingredientes" var="ingrediente" value="#{recetaBean.receta.listaIngredientes}">
+								<f:facet name="header">Ingredientes</f:facet>
 
-							<p:column headerText="Nombre:">
-								<h:outputText value="#{ingrediente.nombre}" />
-								<f:facet name="footer">
-									<p:inputText id="nombreIngrediente" value="#{recetaBean.ingrediente.nombre}" />
-								</f:facet>
-							</p:column>
+								<p:column headerText="Nombre:">
+									<h:outputText value="#{ingrediente.nombre}" />
+									<f:facet name="footer">
+										<h:panelGrid columns="2" styleClass="campoTabla">
+											<p:inputText id="nombreIngrediente" value="#{recetaBean.ingrediente.nombre}" />
+											<p:message for="nombreIngrediente" />
+										</h:panelGrid>
+									</f:facet>
+								</p:column>
 
-							<p:column headerText="Cantidad">
-								<h:outputText value="#{ingrediente.cantidad}" />
-								<f:facet name="footer">
-									<p:inputText id="cantidadIngrediente" value="#{recetaBean.ingrediente.cantidad}" />
-								</f:facet>
-							</p:column>
+								<p:column headerText="Cantidad">
+									<h:outputText value="#{ingrediente.cantidad}" />
+									<f:facet name="footer" >
+										<h:panelGrid columns="2" styleClass="campoTabla">
+											<p:inputText id="cantidadIngrediente" value="#{recetaBean.ingrediente.cantidad}" />
+											<p:message for="cantidadIngrediente" />
+										</h:panelGrid>
+									</f:facet>
+								</p:column>
 
-							<p:column>
-								<f:facet name="footer">
-									<p:commandButton update="tablaIngredientes" value="Guardar" id="guardarIngrediente" styleClass="ui-priority-primary" action="#{recetaBean.guardarIngrediente}" />
-								</f:facet>
-							</p:column>
+								<p:column>
+									<f:facet name="footer">
+										<p:commandButton update="ingredientes" value="Guardar" id="guardarIngrediente" styleClass="ui-priority-primary" action="#{recetaBean.guardarIngrediente}" />
+									</f:facet>
+								</p:column>
 
-						</p:dataTable>
+							</p:dataTable>
+							<p:message for="ingredientes" />
+						</h:panelGrid>
 
 						<h:outputLabel for="preparacion" value="Preparacion:" />
-						<p:inputTextarea id="preparacion" value="#{recetaBean.receta.preparacion}" rows="10" cols="100" queryDelay="750" minQueryLength="4" />
+						<h:panelGrid columns="2">
+							<p:inputTextarea id="preparacion" value="#{recetaBean.receta.preparacion}" rows="10" cols="100" queryDelay="750" minQueryLength="4" />
+							<p:message for="preparacion" />
+						</h:panelGrid>
 
-						<h:panelGrid>
-							<p:commandButton update="recetas" value="Guardar" id="guardarReceta" styleClass="ui-priority-primary" action="#{recetaBean.guardarReceta}" />
+						<h:panelGrid columns="2" id="botones">
+							<p:commandButton update="recetas panelCreacion" value="Guardar" id="guardarReceta" styleClass="ui-priority-primary" action="#{recetaBean.guardarReceta}" />
+							<p:commandButton update="recetas panelCreacion" value="Eliminar" id="eliminarReceta" styleClass="ui-priority-primary" action="#{recetaBean.eliminarReceta}" rendered="#{recetaBean.verEliminar}"/>
 						</h:panelGrid>
 
 					</h:panelGrid>
