@@ -5,8 +5,6 @@
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:p="http://primefaces.org/ui">
 
-	<!-- params for page titles-->
-
 	<ui:define name="content">
 		<h:form id="form_listadoRecetas">
 			<h:panelGrid>
@@ -20,7 +18,7 @@
 						<h3>Recetas:</h3>
 						<hr />
 
-						<p:dataTable var="receta" value="#{listadoRecetasBean.listadoRecetas}" binding="#{listadoRecetasBean.tabla}">
+						<p:dataTable var="receta" value="#{listadoRecetasBean.listadoRecetas}" binding="#{listadoRecetasBean.tabla}" emptyMessage="No se encontraron registros.">
 							<p:column headerText="Nombre:" sortBy="#{receta.nombre}" filterBy="#{receta.nombre}" filterMatchMode="contains">
 								<h:outputText value="#{receta.nombre}" />
 							</p:column>
