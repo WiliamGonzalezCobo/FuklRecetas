@@ -1,8 +1,7 @@
-# Estructura
-	#recetasBM Este es un proyecto ejb y aqui debe ir la logica de negocio y es quien comunicara con el modelo (BD)
-	#recetasWAR Este proyecto contiene la parte web las vista y los Bean (controladores de las vistas)
-	#recetasEAR Este proyecto es el empaquetado del proyecto como tal y es el que se despliega
-	#Dentro de recetasBM\lib estan los jar necesarios por ahora
-	#Se le dio seguridad a la rama de Master para que pida validacion antes de un merge
-	#Prueba Push a rama preproduccion.
+# Proyecto Recettear
+	#recetasWAR Este proyecto contiene la parte web las vista y los Bean (controladores de las vistas) y los pojo necesarios
+	#Dentro de recetasWAR\lib estan los jar necesarios para compilar el proyecto.
+	#Otro punto a tener en cuenta es que la persistencia se realizo por medio de un archivo json el cual la ruta donde se va a guardar el
+	 archivo depende de cada maquina, y este se debe configurar en la clase Persistir.java
+	
 	
