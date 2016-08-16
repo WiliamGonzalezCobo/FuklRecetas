@@ -4,17 +4,15 @@
 				xmlns:f="http://java.sun.com/jsf/core"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:p="http://primefaces.org/ui">
-
-	<!-- params for page titles-->
 	
 	<ui:define name="content">
 		<p:menu style="width: 400px;" styleClass="menu">
-			<p:submenu label="Recetario">
+			<p:submenu label="Recetario Menú principal">
 				<p:menuitem value="Crear Receta" outcome="/modulo1/receta" icon="ui-icon-plus" />
-				<p:menuitem value="Busqueda Por Nombre y Tiempo" outcome="/modulo2/busquedaNombreTiempo" icon="ui-icon-lightbulb" />
-				<p:menuitem value="Busqueda Por Ingredientes" outcome="/modulo3/busquedaIngredientes" icon="ui-icon-search" />
+				<p:menuitem value="Búsqueda Por Nombre y Tiempo" outcome="/modulo2/busquedaNombreTiempo" icon="ui-icon-lightbulb" />
+				<p:menuitem value="Búsqueda Por Ingredientes" outcome="/modulo3/busquedaIngredientes" icon="ui-icon-search" />
 				<p:menuitem value="Listado Recetas" outcome="/modulo4/listadoRecetas" icon="ui-icon-search" />
-				<p:menuitem value="Busqueda Por Nombre" outcome="/modulo5/busquedaNombre" icon="ui-icon-zoomin" />
+				<p:menuitem value="Búsqueda Por Nombre" outcome="/modulo5/busquedaNombre" icon="ui-icon-zoomin" />
 			</p:submenu>
 		</p:menu>
 	</ui:define>
